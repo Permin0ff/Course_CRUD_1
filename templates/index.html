@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>CRUD</title>
+</head>
+<body>
+    <form method="POST" action="create/">
+        {% csrf_token %}
+        <p>
+            <label>Введите имя</label><br>
+            <input type="text" name="name" value="{{ person.name }}"/>
+        </p>
+        <p>
+            <label>Введите возраст</label><br>
+            <input type="number" name="age" value="{{ person.age }}"/>
+        </p>
+        <p>
+            <input type="submit" value="Сохранить">
+        </p>
+    </form>
+{% if people.count > 0 %}
+    <h2>Список пользователей</h2>
+    <table>
+        <thead align="center">
+            <tr>
+                <th width="10%">Id</th>
+                <th width="30%">Имя</th>
+                <th width="10%">Возраст</th>
+                <th width="50%">Действие</th>
+            </tr>
+        </thead>
+        <tbody align="center">
+        {% for person in people %}
+            <tr>
+                <td>{{ person.id }}</td>
+                <td>{{ person.name }}</td>
+                <td>{{ person.age }}</td>
+                <td><a href="edit/{{ person.id }}">Изменить</a> | <a href="delete/{{ person.id }}">Удалить</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+</body>
+</html>
